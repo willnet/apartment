@@ -1,9 +1,6 @@
 name: RSpec PostgreSQL 14
 on:
   push:
-    branches:
-      - development
-      - main
   pull_request:
     types: [opened, synchronize, reopened]
   release:

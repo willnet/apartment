@@ -1,9 +1,6 @@
 name: RSpec MySQL 8.0
 on:
   push:
-    branches:
-      - development
-      - main
   pull_request:
     types: [opened, synchronize, reopened]
   release:
