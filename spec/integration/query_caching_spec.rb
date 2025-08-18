@@ -14,7 +14,7 @@ describe 'query caching' do
       end
 
       Apartment::Tenant.reload!(config)
-
+      Apartment::Test.migrate
       db_names.each do |db_name|
         Apartment::Tenant.create(db_name)
         Company.create database: db_name
@@ -56,6 +56,7 @@ describe 'query caching' do
       Apartment::Tenant.reload!(config)
 
       Apartment::Tenant.create(db_name)
+      Apartment::Test.migrate
       Company.create database: db_name
     end
 

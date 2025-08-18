@@ -15,6 +15,7 @@ describe 'connection handling monkey patch' do
     Apartment::Tenant.reload!(config)
 
     Apartment::Tenant.create(db_name)
+    Apartment::Test.migrate
     Company.create database: db_name
     Apartment::Tenant.switch! db_name
     User.create! name: db_name
