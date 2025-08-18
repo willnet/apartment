@@ -37,11 +37,21 @@ module Apartment
     end
 
     def migrate
-      ActiveRecord::Migrator.migrate(Rails.root + ActiveRecord::Migrator.migrations_path)
+      migrations_path = Rails.application.paths['db/migrate'].to_a
+      if ActiveRecord.version.release < Gem::Version.new('7.1')
+        ActiveRecord::MigrationContext.new(migrations_path, ActiveRecord::SchemaMigration).migrate
+      else
+        ActiveRecord::MigrationContext.new(migrations_path).migrate
+      end
     end
 
     def rollback
-      ActiveRecord::Migrator.rollback(Rails.root + ActiveRecord::Migrator.migrations_path)
+      migrations_path = Rails.application.paths['db/migrate'].to_a
+      if ActiveRecord.version.release < Gem::Version.new('7.1')
+        ActiveRecord::MigrationContext.new(migrations_path, ActiveRecord::SchemaMigration).rollback
+      else
+        ActiveRecord::MigrationContext.new(migrations_path).rollback
+      end
     end
   end
 end
