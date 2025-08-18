@@ -24,7 +24,8 @@ if !defined?(JRUBY_VERSION) && (ENV['DATABASE_ENGINE'] == 'sqlite' || ENV['DATAB
       it_behaves_like 'a connection based apartment adapter'
 
       after(:all) do
-        File.delete(Apartment::Test.config['connections']['sqlite']['database'])
+        file = Apartment::Test.config['connections']['sqlite']['database']
+        FileUtils.rm_rf(file)
       end
     end
 
