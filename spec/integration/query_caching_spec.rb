@@ -14,7 +14,7 @@ describe 'query caching' do
       end
 
       Apartment::Tenant.reload!(config)
-      Apartment::Test.migrate
+      Apartment::Test.migrate if ENV['DATABASE_ENGINE'] && ENV['DATABASE_ENGINE'] == 'sqlite'
       db_names.each do |db_name|
         Apartment::Tenant.create(db_name)
         Company.create database: db_name
@@ -56,7 +56,7 @@ describe 'query caching' do
       Apartment::Tenant.reload!(config)
 
       Apartment::Tenant.create(db_name)
-      Apartment::Test.migrate
+      Apartment::Test.migrate if ENV['DATABASE_ENGINE'] && ENV['DATABASE_ENGINE'] == 'sqlite'
       Company.create database: db_name
     end
 
